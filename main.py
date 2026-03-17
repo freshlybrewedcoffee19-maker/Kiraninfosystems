@@ -28,7 +28,7 @@ def chat():
             return jsonify({"reply": "No message provided"})
 
         response = client.models.generate_content(
-            model="gemini-1.5-flash", contents=user_message
+            model="gemini-1.5-flash-latest", contents=user_message
         )
 
         return jsonify({"reply": response.text})
