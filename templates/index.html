@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kiran Infosystems Chatbot</title>
+<style>
+body { font-family: Arial; margin: 40px; }
+#chat { border:1px solid #ccc; padding:10px; height:300px; overflow-y:auto; }
+input { width:80%; padding:10px; }
+button { padding:10px; }
+</style>
+</head>
+
+<body>
+
+<h2>Kiran Infosystems Assistant</h2>
+
+<div id="chat"></div>
+
+<input id="message" placeholder="Ask about AV solutions..." />
+<button onclick="send()">Send</button>
+
+<script>
+async function send() {
+  const message = document.getElementById("message").value;
+
+  const chat = document.getElementById("chat");
+  chat.innerHTML += "<p><b>You:</b> " + message + "</p>";
+
+  const res = await fetch("/chat", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({message: message})
+  });
+
+  const data = await res.json();
+
+  chat.innerHTML += "<p><b>Bot:</b> " + data.reply + "</p>";
+
+  document.getElementById("message").value = "";
+}
+</script>
+
+</body>
+</html>
